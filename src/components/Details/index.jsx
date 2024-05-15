@@ -68,7 +68,7 @@ const StyledElement = styled.div`
       }
    }
 `;
-const Detail = ({ content, title }) => {
+const Detail = ({ content = '', title = '' }) => {
    const ref = useRef(null);
    const [active, setActive] = useState(false);
    const onClick = () => {
@@ -86,10 +86,6 @@ const Detail = ({ content, title }) => {
          </div>
       </StyledElement>
    );
-};
-Detail.defaultProps = {
-   content: '',
-   title: '',
 };
 Detail.propTypes = {
    content: string,
