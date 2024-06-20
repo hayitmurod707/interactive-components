@@ -1,2 +1,2 @@
-export { default as Tab } from './Tab';
-export { default as Tabs } from './Tabs';
+export { default as MuiTabs } from './MuiTabs';
+export { default as SimpleTabs } from './SimpleTabs';
