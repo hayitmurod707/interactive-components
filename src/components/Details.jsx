@@ -1,5 +1,5 @@
 import { string } from 'prop-types';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 const Minus = () => (
    <svg fill='none' height='22' viewBox='0 0 20 20' width='22'>
@@ -56,39 +56,44 @@ const StyledElement = styled.div`
       }
    }
    & .content {
-      display: none;
-      padding: 0 16px 16px 16px;
-      & div {
-         border-top: 1px solid rgba(105, 111, 133, 0.15);
-         color: #6e7892;
-         font-size: 15px;
-         font-weight: 500;
-         line-height: 160%;
-         padding: 16px 0 0 0;
+      display: grid;
+      grid-template-rows: 0fr;
+      overflow: hidden;
+      transition: grid-template-rows 400ms;
+      &[data-open='true'] {
+         grid-template-rows: 1fr;
+      }
+      & > div {
+         min-height: 0;
+         & .inner-content {
+            border-top: 1px solid rgba(105, 111, 133, 0.15);
+            color: #6e7892;
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 160%;
+            padding: 16px;
+         }
       }
    }
 `;
-const Detail = ({ content = '', title = '' }) => {
-   const ref = useRef(null);
-   const [active, setActive] = useState(false);
-   const onClick = () => {
-      setActive(!active);
-      window.jQuery(ref.current).slideToggle(400);
-   };
+const Details = ({ content = '', title = '' }) => {
+   const [open, setOpen] = useState(false);
    return (
       <StyledElement>
-         <div className='summary' onClick={onClick}>
+         <div className='summary' onClick={() => setOpen(prev => !prev)}>
             <div className='title'>{title}</div>
-            <div className='icon'>{active ? <Minus /> : <Plus />}</div>
+            <div className='icon'>{open ? <Minus /> : <Plus />}</div>
          </div>
-         <div className='content' ref={ref}>
-            <div>{content}</div>
+         <div className='content' data-open={open}>
+            <div>
+               <div className='inner-content'>{content}</div>
+            </div>
          </div>
       </StyledElement>
    );
 };
-Detail.propTypes = {
+Details.propTypes = {
    content: string,
    title: string,
 };
-export default Detail;
+export default Details;

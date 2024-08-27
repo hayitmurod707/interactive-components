@@ -1,8 +1,9 @@
-import React from 'react';
 import SimpleBar from 'simplebar-react';
 import styled from 'styled-components';
-const StyledScrollbar = styled.div`
+const StyledScrollbar = styled(SimpleBar)`
    height: 100%;
+   max-height: 100%;
+   max-width: 100%;
    width: 100%;
    & .simplebar-scrollbar {
       cursor: pointer !important;
@@ -10,14 +11,14 @@ const StyledScrollbar = styled.div`
    & .simplebar-track {
       z-index: 3;
       &.simplebar-vertical {
-         bottom: 2px;
-         top: 2px;
+         bottom: 0;
+         top: 0;
          width: 13px;
       }
       &.simplebar-horizontal {
          height: 13px;
-         left: 3px;
-         right: 3px;
+         left: 0;
+         right: 0;
          & .simplebar-scrollbar {
             height: 13px;
          }
@@ -41,18 +42,6 @@ const StyledScrollbar = styled.div`
    }
 `;
 const Scrollbar = ({ children }) => (
-   <StyledScrollbar>
-      <SimpleBar
-         autoHide={false}
-         style={{
-            height: '100%',
-            maxHeight: '100%',
-            maxWidth: '100%',
-            width: '100%',
-         }}
-      >
-         {children}
-      </SimpleBar>
-   </StyledScrollbar>
+   <StyledScrollbar autoHide={false}>{children}</StyledScrollbar>
 );
 export default Scrollbar;
